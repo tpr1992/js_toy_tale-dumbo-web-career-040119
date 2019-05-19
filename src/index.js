@@ -29,13 +29,17 @@ toyFormSubmit.addEventListener('submit', (event) => {
   .then(toy => toyCollection.innerHTML += makeToyCardHtml(toy))
 })
 
-fetch('http://localhost:3000/toys')
-.then(res => res.json())
-.then((arrayOfToys) => {
-  arrayOfToys.forEach((toy) => {
-    toyCollection.innerHTML += makeToyCardHtml(toy)
+const fetchToys = () => {
+  fetch('http://localhost:3000/toys')
+  .then(res => res.json())
+  .then((arrayOfToys) => {
+    arrayOfToys.forEach((toy) => {
+      toyCollection.innerHTML += makeToyCardHtml(toy)
+    })
   })
-})
+}
+fetchToys()
+
 
 
 // Helper function, returns the specific HTML
@@ -45,8 +49,21 @@ const makeToyCardHtml = (toy) => {
   <img src='${toy.image}' class="toy-avatar" />
   <p>${toy.likes} Likes </p>
   <button class="like-btn" data-likes="${toy.likes}" data-id="${toy.id}">Like <3</button>
+  <button class="delete-btn" data-id="${toy.id}">Throw Away Toy</button>
   </div>`
 }
+
+toyCollection.addEventListener('click', (event) => {
+  if (event.target.className === 'delete-btn') {
+    let toyId = event.target.dataset.id
+    fetch(`http://localhost:3000/toys/${toyId}`, {
+      method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(toyCollection.innerHTML = '')
+    .then(fetchToys)
+  }
+})
 
 
 toyCollection.addEventListener('click', (event) => {
@@ -65,7 +82,7 @@ toyCollection.addEventListener('click', (event) => {
       body: JSON.stringify({
         likes: newLikes
       })
-    })
+    }).then(res => res.json())
   }
 })
 
