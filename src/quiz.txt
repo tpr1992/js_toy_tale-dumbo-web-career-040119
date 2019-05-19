@@ -1,0 +1,97 @@
+Fetch Quiz
+The quiz questions relate to this piece of code:
+
+fetch("http://www.ajax.com/dinosaurs/13", {
+  method: "PATCH",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    species: "Tyrannosaurus Rex",
+    name: "SUE"
+  })
+}).then(response => response.json())
+  .then(data => slapItOnTheDom(data))
+Part I
+  fetch("http://www.ajax.com/dinosaurs/13", {
+    method: "PATCH",
+
+
+What does the string passed in as the first parameter to fetch do?
+
+  The string is the URL that you're fetching to
+
+What does the method key of the second parameter do?
+
+  The method key defines the type of method we want to use for the fetch, if the request is not a get request we must clearly define it
+
+Based on the values of the string, the value of the method key, and the REST standard, what will this fetch do in the API?
+Part II
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+What is the "Content-Type" header for?
+
+  The content type defines the format of the content we are sending
+
+What is the "Accept" header for?
+
+  The accept defines the type of content we are willing to accept
+
+When do I need a "Content-Type" header?
+
+When the fetch request is posting or patching
+
+When do I need an "Accept" header?
+
+When the fetch request is receiving information
+
+Part III
+  body: JSON.stringify({
+    species: "Tyrannosaurus Rex",
+    name: "SUE"
+  })
+What data type does the value of the body key need to be?
+
+The json stringify is taking json data and turning it into a string
+
+What will the return value of JSON.stringify look like, based on the parameter shown here?
+
+The return value will look like
+
+What purpose does the body of a PATCH request serve?
+
+The body is to define the key we want to edit and the new value we want to replace
+
+Should there be an ID in the object being passed to JSON.stringify? Why?
+
+For a delete or patch request we need to state the id so that the correct item is edited or deleted
+
+Part IV
+}).then(response => response.json())
+What are we calling .then on?
+
+We are calling then for after the url has been connected to
+
+What is being passed to the .then method?
+
+The object that we are receiving from the api
+
+What is response?
+
+The response is the json object
+
+What does .json() do? What does it return?
+
+
+
+Part V
+  .then(data => slapItOnTheDom(data))
+What is data?
+What does slapItOnTheDom probably do with data?
+Is this optimistic rendering, pessimistic rendering, or neither?
+Bonus
+What does it mean that fetch is asynchronous?
+Why does JavaScript use asynchronous code so much?
